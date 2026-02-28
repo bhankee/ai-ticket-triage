@@ -18,16 +18,16 @@ class SnowflakeCfg:
     schema: str
 
 def cfg_from_env() -> SnowflakeCfg:
-    missing = [k for k in [
+    missing = [var for var in [
         "SNOWFLAKE_ACCOUNT",
         "SNOWFLAKE_USER",
         "SNOWFLAKE_PASSWORD",
         "SNOWFLAKE_WAREHOUSE",
         "SNOWFLAKE_DATABASE",
         "SNOWFLAKE_SCHEMA",
-    ] if not os.getenv(k)]
+    ] if not os.getenv(var)]
     if missing:
-        raise RuntimeError(f"Missing env vars: {', '.join(missing)}")
+        raise RuntimeError(f"Missing env vars: {missing}")
 
     return SnowflakeCfg(
         account=os.environ["SNOWFLAKE_ACCOUNT"],
